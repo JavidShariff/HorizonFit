@@ -16,11 +16,15 @@ app.use(express.static("public"));
 app.use(cookieParser());
 
 // Import Routes
-// const authRoutes = require('./routes/authRoutes');
+import authRoutes from './routes/Auth.route.js';   
+import doctorRoutes from './routes/Doctor.route.js';
+// import patientRoutes from './routes/Patient.route.js'; 
 // const bookingRoutes = require('./routes/bookingRoutes');
 
 // Define Routes
-// app.use('/api/auth', authRoutes);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/doctor', doctorRoutes);
+// app.use('/api/v1/patients', patientRoutes);
 // app.use('/api/bookings', bookingRoutes);
 
 export {app};
