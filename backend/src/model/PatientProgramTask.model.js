@@ -2,20 +2,31 @@
 import mongoose from 'mongoose';
 
 const PatientProgramTaskSchema = new mongoose.Schema({
-    patientId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    description: { type: String, required: true },
-    programWeek: { type: Number, required: true, min: 1, max: 15 },
+    patientId: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User', 
+        required: true 
+    },
+    weekNumber: { 
+        type: Number, 
+        required: true, 
+        min: 1, 
+        max: 15 
+    },
+    // The actual text of the customized task
+    taskDescription: { 
+        type: String, 
+        required: true 
+    },
+    // The Doctor can also set specific metrics to be tracked for this task
+    metricsToTrack: [{ type: String }],
     
-    frequency: { type: String, enum: ['Daily', 'SpecificDays', 'Weekly', 'OneTime'], required: true }, 
-    
-    daysApplicable: [{ type: String, enum: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] }],
-    
-    metricRequired: { type: String, enum: ['BloodSugar', 'Weight', 'Activity', null], default: null },
-
-    status: { type: String, enum: ['Pending', 'Completed', 'Missed'], default: 'Pending' },
-
-    completionDate: { type: Date, default: null }, 
-    
+    // Status can be updated by the Doctor (e.g., mark as 'Achieved')
+    status: { 
+        type: String, 
+        enum: ['Pending', 'Completed', 'Doctor Override'],
+        default: 'Pending'
+    },
 }, { timestamps: true });
 
 export default mongoose.model('PatientProgramTask', PatientProgramTaskSchema);

@@ -11,16 +11,6 @@ const UserSchema = new mongoose.Schema({
         enum: ['Patient', 'Doctor'], 
         required: true 
     },
-    isActive: { 
-        type: Boolean, 
-        default: true 
-    },
-    
-    // NEW FIELD: Stores when the account was marked inactive
-    deactivationDate: { 
-        type: Date, 
-        default: null // Should be null while the user is active
-    },
     assignedCategory: { type: String, default: null }, // e.g., 'Weight Loss'
     programStartDate: { type: Date, default: null },
 }, { timestamps: true });
@@ -40,7 +30,7 @@ UserSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 
-UserSchema.methods.generateAccessToken = async function (){
+userSchema.methods.generateAccessToken = async function (){
   return jwt.sign(
   {
     _id : this._id,
@@ -54,7 +44,7 @@ UserSchema.methods.generateAccessToken = async function (){
   }
 )}
 
-UserSchema.methods.generateRefreshToken = async function (){
+userSchema.methods.generateRefreshToken = async function (){
   return jwt.sign(
   {
     _id : this._id
@@ -66,4 +56,4 @@ UserSchema.methods.generateRefreshToken = async function (){
 )
 };
 
-export default mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);
