@@ -18,13 +18,11 @@ app.use(cookieParser());
 // Import Routes
 import authRoutes from './routes/Auth.route.js';   
 import doctorRoutes from './routes/Doctor.route.js';
-// import patientRoutes from './routes/Patient.route.js'; 
-// const bookingRoutes = require('./routes/bookingRoutes');
+import patientRoutes from './routes/Patient.route.js'; 
 
 // Define Routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/doctor', doctorRoutes);
-// app.use('/api/v1/patients', patientRoutes);
-// app.use('/api/bookings', bookingRoutes);
+app.use('/api/v1/patients', patientRoutes);
 
 export {app};

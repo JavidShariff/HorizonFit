@@ -10,7 +10,8 @@ import ConsultationBooking from "../model/consultationBooking.model.js";
 // @route   POST /api/doctor/create-patient
 // @access  Private (Requires Doctor role via middleware)
 const createPatient = asyncHandler(async (req, res) => {
-  const { name,email, password, assignedCategory, programStartDate } = req.body;
+
+  const { name,email, password, assignedCategory, programStartDate} = req.body;
 
   if (!name || !email || !password || !assignedCategory) {
     return res
